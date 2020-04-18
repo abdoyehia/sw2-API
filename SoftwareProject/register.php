@@ -11,13 +11,19 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    if($user->signUp($data->username, $data->password, $data->email, $data->type)) {
+    if($data->type < 1 || $data->type > 2) {
         echo json_encode(
-          array('message' => 'User Created')
+          array('message' => 'Invalid data')
         );
     } else {
-        echo json_encode(
-          array('message' => 'User Not Created')
-        );
+        if($user->signUp($data->username, $data->password, $data->email, $data->type)) {
+            echo json_encode(
+              array('message' => 'User Created')
+            );
+        } else {
+            echo json_encode(
+              array('message' => 'User Not Created')
+            );
+        }
     }
 ?>

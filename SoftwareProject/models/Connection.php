@@ -1,4 +1,5 @@
 <?php
+
 class Connection {
 
     static $conn;
@@ -16,4 +17,5 @@ class Connection {
         return Connection::$conn;
     }
 }
+
 ?>

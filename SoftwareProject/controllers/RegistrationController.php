@@ -6,7 +6,7 @@ include_once 'models/UserInfo.php';
 class RegistrationController {
 
 	public function signUp($username, $password, $email, $type) {
-		if(UserInfo::getUser($username)->rowCount() > 0) {
+		if(UserInfo::getUser($username, $email)->rowCount() > 0) {
 			return false;
 		} else {
 			$user = new UserInfo();

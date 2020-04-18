@@ -9,13 +9,21 @@ class UserInfo {
 	public $email;
     public $type;
 
-    public static function getUser($username) {
+    public static function getUser($username, $email = null) {
         $con = Connection::connect();
 
-        $query = 'SELECT * FROM users WHERE Username = :username LIMIT 1';
+        $orStatment = '';
+        if($email == null) {
+            $orStatment = '';
+        } else {
+            $orStatment = "OR Email = " . $email;
+        }
+
+        $query = "SELECT * FROM users WHERE Username = :username OR Email = :email LIMIT 1";
         $stmt = $con->prepare($query);
         $stmt->execute(array(
-            ':username' => $username
+            ':username' => $username,
+            ':email' => $email
         ));
         return $stmt;
     }
